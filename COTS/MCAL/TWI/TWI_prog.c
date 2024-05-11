@@ -3,8 +3,6 @@
 #include "TWI_address.h"
 #include "TWI_int.h"
 
-#include "../../HAL/LCD/LCD.h"
-
 #if( TWI_INTERRUPT == TWI_INTERRUPT_OFF || TWI_INTERRUPT == TWI_INTERRUPT_ON )
 #if( TWI_INTERRUPT == TWI_INTERRUPT_OFF )
 #define TWIE_MODE	(0<<TWIE)
@@ -113,8 +111,7 @@ STD_Type MCAL_TWI_u8RecieveData(u8 * LOC_Pu8TWIData)
 STD_Type MCAL_TWI_u8GetData(u8 * LOC_Pu8TWIData)
 {
 	STD_Type LOC_u8ReturnValue = E_NOT_OK;
-	// 	HAL_LCD_u8WriteInteger(GLOB_u8TWIRecieveData);
-	// 	HAL_LCD_u8WriteChar(' ');
+
 	if(LOC_Pu8TWIData && (GLOB_u8TWIDataReceived == FALSE))
 	{
 		*LOC_Pu8TWIData = GLOB_u8TWIRecieveData;
@@ -225,9 +222,6 @@ STD_Type MCAL_TWI_u8CallbackRecieveOnly(void (* LOC_PvoidPtr)(void))
 ISR(TWI_vect)
 {
 	GLOB_u8TWIStatus = TWSR & TWI_MASK_STATUS;
-	
-	//HAL_LCD_u8WriteInteger(GLOB_u8TWIStatus);
-	//HAL_LCD_u8WriteChar(' ');
 	
 	switch(GLOB_u8TWIStatus)
 	{
